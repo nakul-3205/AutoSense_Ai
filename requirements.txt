@@ -14,3 +14,4 @@ uvicorn
 mlflow
 python-dotenv
 joblib
+dvc
