@@ -1,3 +1,0 @@
-[core]
-    remote = dagshub-storage
-    autostage = true
