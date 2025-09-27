@@ -1,0 +1,11 @@
+columns:
+  - make
+  - mileage
+  - year
+  - engine_hp
+  - vehicle_age
+  - transmission
+  - fuel_type
+  - drivetrain
+  - body_type
+  - price

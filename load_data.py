@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import pandas as pd 
 import pymongo
 import numpy as np
-from src.utils.logging import logging
+from src.utils.log_config import logging
 from src.utils.exception import CustomException
 
 
