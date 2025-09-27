@@ -25,7 +25,6 @@ class DataIngestion:
             self.required_columns = [
                 "make",
                 "mileage",
-                "year",
                 "engine_hp",
                 "vehicle_age",
                 "transmission",

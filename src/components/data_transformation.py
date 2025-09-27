@@ -24,7 +24,7 @@ class DataTransformation:
 
         # Define numeric and categorical columns
         self.categorical_cols = ['transmission', 'fuel_type', 'drivetrain', 'body_type','make']
-        self.numeric_cols = [ 'mileage', 'year', 'engine_hp', 'vehicle_age']
+        self.numeric_cols = [ 'mileage',  'engine_hp', 'vehicle_age']
 
     def get_transformer_object(self):
         try:
