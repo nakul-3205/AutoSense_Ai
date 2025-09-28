@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from src.entity.artifact_entity import DataTransformationArtifact, DataValidationArtifact
 from src.entity.config_entity import DataTransformationConfig
 from src.utils.exception import CustomException
-from src.utils.log_config import logger  # fixed import
+from src.utils.log_config import logger
 
 
 class DataTransformation:
@@ -23,22 +23,25 @@ class DataTransformation:
         self.data_transformation_config = data_transformation_config
 
         # Define numeric and categorical columns
-        self.categorical_cols = ['transmission', 'fuel_type', 'drivetrain', 'body_type','make']
-        self.numeric_cols = [ 'mileage',  'engine_hp', 'vehicle_age']
+        self.categorical_cols = ['transmission', 'fuel_type', 'drivetrain', 'body_type', 'make']
+        self.numeric_cols = ['mileage', 'engine_hp', 'vehicle_age']
 
     def get_transformer_object(self):
         try:
-            ohe = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
+            # Keep all categories, do NOT drop any
+            ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
             scaler = StandardScaler()
+
             preprocessor = ColumnTransformer(
                 transformers=[
                     ('ohe', ohe, self.categorical_cols),
                     ('scaler', scaler, self.numeric_cols)
                 ],
-                remainder='drop'
+                remainder='drop'  # keep all other columns if any
             )
-            logger.info('Initialized StandardScaler and OneHotEncoder.')
-            return preprocessor, scaler
+
+            logger.info('Initialized StandardScaler and OneHotEncoder (all categories kept).')
+            return preprocessor, ohe, scaler
         except Exception as e:
             logger.error('Error creating transformer object.')
             raise CustomException(e, sys)
@@ -47,11 +50,11 @@ class DataTransformation:
         try:
             logger.info('Starting data transformation process.')
 
-            # Read validated train and test data
+            # Load validated train and test data
             train_df = pd.read_csv(self.data_validation_artifact.valid_train_file_path)
             test_df = pd.read_csv(self.data_validation_artifact.valid_test_file_path)
-            logger.info(f"Train data shape before transformation: {train_df.shape}")
-            logger.info(f"Test data shape before transformation: {test_df.shape}")
+            logger.info(f"Train shape before transformation: {train_df.shape}")
+            logger.info(f"Test shape before transformation: {test_df.shape}")
 
             # Separate features and target
             target_column = "price"
@@ -59,10 +62,15 @@ class DataTransformation:
             y_train = train_df[target_column]
             X_test = test_df.drop(columns=[target_column])
             y_test = test_df[target_column]
+
+            # Fill missing values
             X_train.fillna(0, inplace=True)
             X_test.fillna(0, inplace=True)
 
-            preprocessing_obj, scaler_obj = self.get_transformer_object()
+            # Get transformer objects
+            preprocessing_obj, ohe_obj, scaler_obj = self.get_transformer_object()
+
+            # Transform features
             X_train_transformed = preprocessing_obj.fit_transform(X_train)
             X_test_transformed = preprocessing_obj.transform(X_test)
             logger.info("Feature transformation completed.")
@@ -91,6 +99,15 @@ class DataTransformation:
             with open(scaler_path, 'wb') as f:
                 pickle.dump(scaler_obj, f)
             logger.info("Scaler object saved successfully.")
+
+            # Save OneHotEncoder separately
+            ohe_path = os.path.join(
+                os.path.dirname(self.data_transformation_config.transformed_object_file_path),
+                "onehot_encoder.pkl"
+            )
+            with open(ohe_path, 'wb') as f:
+                pickle.dump(ohe_obj, f)
+            logger.info("OneHotEncoder saved successfully.")
 
             # Return artifact
             return DataTransformationArtifact(

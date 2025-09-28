@@ -44,7 +44,7 @@ class ModelTrainer:
             # Reduced model complexity to save time and prevent overfitting
             models = {
                 "RandomForest": RandomForestRegressor(n_estimators=50, max_depth=12, n_jobs=-1, random_state=42),
-                "GradientBoosting": GradientBoostingRegressor(n_estimators=100, max_depth=6, random_state=42),
+                "GradientBoosting": GradientBoostingRegressor(n_estimators=50, max_depth=6, random_state=42),
                 "Lasso": Lasso(alpha=0.001)
             }
 
