@@ -1,0 +1,16 @@
+name: Ping Render App
+
+# Run every 14 minutes
+on:
+  schedule:
+    - cron: '*/14 * * * *'   # every 14 minutes
+  workflow_dispatch:         # allows manual triggering too
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send GET request to Render app
+        run: |
+          curl -s https://autosense-ai-1.onrender.com/ || echo "Request failed"
