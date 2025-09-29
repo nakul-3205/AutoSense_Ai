@@ -1,7 +1,7 @@
 from src.utils.log_config import logger
 from src.utils.exception import CustomException
 import yaml
-import os,sys,dill,pickle,numpy as np
+import os,sys,numpy as np
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score
 

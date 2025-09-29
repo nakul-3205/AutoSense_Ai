@@ -1,0 +1,33 @@
+# Python stuff
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+*.mypy_cache/
+*.egg-info/
+*.eggs/
+
+# Environment and secrets
+.env
+*.env
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Logs
+logs/
+*.log
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
