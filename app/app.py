@@ -8,9 +8,9 @@ import pandas as pd
 app = Flask(__name__)
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PREPROCESSOR_PATH = os.path.join(BASE_DIR, "best_model", "transformed_object", "preprocessing.pkl")
-MODEL_PATH = os.path.join(BASE_DIR, "best_model", "model.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PREPROCESSOR_PATH = os.path.join(BASE_DIR, "..", "best_model", "transformed_object", "preprocessing.pkl")
+MODEL_PATH = os.path.join(BASE_DIR, "..", "best_model", "model.pkl")
 
 
 with open(PREPROCESSOR_PATH, "rb") as f:
@@ -30,7 +30,7 @@ FEATURE_COLUMNS = [
     "vehicle_age"
 ]
 
-@app.route("/predict", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     prediction = None
     if request.method == "POST":

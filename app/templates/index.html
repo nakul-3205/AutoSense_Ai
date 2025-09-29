@@ -2,90 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Car Price Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Gen Car Price Predictor 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Car Price Predictor</h1>
-        <form action="/predict" method="post">
-            <label for="mileage">Mileage (km):</label>
-            <input type="number" name="mileage" required>
+    <div class="main-wrapper">
+        <header class="header">
+            <h1>AutoSense Ai</h1>
+            <p>Enter your vehicle details to get an instant, accurate valuation.</p>
+        </header>
 
-            <label for="engine_hp">Engine HP:</label>
-            <input type="number" name="engine_hp" required>
+        <div class="container">
+            <form action="/" method="post" class="prediction-form">
+                
+                <div class="input-group-row">
+                    <div class="input-field">
+                        <label for="mileage">Mileage (km) 🛣️</label>
+                        <input type="number" name="mileage" required placeholder="e.g., 50000">
+                    </div>
+                    <div class="input-field">
+                        <label for="engine_hp">Engine HP ⚙️</label>
+                        <input type="number" name="engine_hp" required placeholder="e.g., 180">
+                    </div>
+                    <div class="input-field">
+                        <label for="vehicle_age">Vehicle Age (years) 📅</label>
+                        <input type="number" name="vehicle_age" required placeholder="e.g., 3">
+                    </div>
+                </div>
 
-            <label for="vehicle_age">Vehicle Age (years):</label>
-            <input type="number" name="vehicle_age" required>
+                <div class="input-group-row">
+                    <div class="input-field">
+                        <label for="make">Make 🏭</label>
+                        <select name="make" required>
+                            <option value="" disabled selected>Select Car Make</option>
+                            <option value="Volkswagen">Volkswagen</option>
+                            <option value="Lexus">Lexus</option>
+                            <option value="Subaru">Subaru</option>
+                            <option value="Cadillac">Cadillac</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Land Rover">Land Rover</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="Ram">Ram</option>
+                            <option value="Chrysler">Chrysler</option>
+                            <option value="GMC">GMC</option>
+                            <option value="Volvo">Volvo</option>
+                            <option value="Audi">Audi</option>
+                            <option value="Chevrolet">Chevrolet</option>
+                            <option value="Tesla">Tesla</option>
+                            <option value="Hyundai">Hyundai</option>
+                            <option value="Ford">Ford</option>
+                            <option value="Porsche">Porsche</option>
+                            <option value="Acura">Acura</option>
+                            <option value="Nissan">Nissan</option>
+                            <option value="Kia">Kia</option>
+                            <option value="Jeep">Jeep</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Dodge">Dodge</option>
+                            <option value="Mercedes-Benz">Mercedes-Benz</option>
+                            <option value="Honda">Honda</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="body_type">Body Type 🚗</label>
+                        <select name="body_type" required>
+                            <option value="" disabled selected>Select Body Type</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Pickup Truck">Pickup Truck</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Minivan">Minivan</option>
+                            <option value="Wagon">Wagon</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="fuel_type">Fuel Type ⛽</label>
+                        <select name="fuel_type" required>
+                            <option value="" disabled selected>Select Fuel Type</option>
+                            <option value="Electric">Electric</option>
+                            <option value="Gasoline">Gasoline</option>
+                            <option value="Diesel">Diesel</option>
+                        </select>
+                    </div>
+                </div>
 
-            <label for="body_type">Body Type:</label>
-            <select name="body_type" required>
-                <option value="Sedan">Sedan</option>
-                <option value="SUV">SUV</option>
-                <option value="Hatchback">Hatchback</option>
-                <option value="Pickup Truck">Pickup Truck</option>
-                <option value="Coupe">Coupe</option>
-                <option value="Minivan">Minivan</option>
-                <option value="Wagon">Wagon</option>
-            </select>
+                <div class="input-group-row">
+                    <div class="input-field">
+                        <label for="transmission">Transmission 🕹️</label>
+                        <select name="transmission" required>
+                            <option value="" disabled selected>Select Transmission</option>
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="drivetrain">Drivetrain 🔗</label>
+                        <select name="drivetrain" required>
+                            <option value="" disabled selected>Select Drivetrain</option>
+                            <option value="RWD">RWD (Rear-Wheel Drive)</option>
+                            <option value="FWD">FWD (Front-Wheel Drive)</option>
+                            <option value="AWD">AWD (All-Wheel Drive)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-button">Predict Price</button>
+            </form>
 
-            <label for="transmission">Transmission:</label>
-            <select name="transmission" required>
-                <option value="Manual">Manual</option>
-                <option value="Automatic">Automatic</option>
-            </select>
-
-            <label for="drivetrain">Drivetrain:</label>
-            <select name="drivetrain" required>
-                <option value="RWD">RWD</option>
-                <option value="FWD">FWD</option>
-                <option value="AWD">AWD</option>
-            </select>
-
-            <label for="fuel_type">Fuel Type:</label>
-            <select name="fuel_type" required>
-                <option value="Electric">Electric</option>
-                <option value="Gasoline">Gasoline</option>
-                <option value="Diesel">Diesel</option>
-            </select>
-
-            <label for="make">Make:</label>
-            <select name="make" required>
-                <option value="Volkswagen">Volkswagen</option>
-                <option value="Lexus">Lexus</option>
-                <option value="Subaru">Subaru</option>
-                <option value="Cadillac">Cadillac</option>
-                <option value="Toyota">Toyota</option>
-                <option value="Land Rover">Land Rover</option>
-                <option value="Mazda">Mazda</option>
-                <option value="Ram">Ram</option>
-                <option value="Chrysler">Chrysler</option>
-                <option value="GMC">GMC</option>
-                <option value="Volvo">Volvo</option>
-                <option value="Audi">Audi</option>
-                <option value="Chevrolet">Chevrolet</option>
-                <option value="Tesla">Tesla</option>
-                <option value="Hyundai">Hyundai</option>
-                <option value="Ford">Ford</option>
-                <option value="Porsche">Porsche</option>
-                <option value="Acura">Acura</option>
-                <option value="Nissan">Nissan</option>
-                <option value="Kia">Kia</option>
-                <option value="Jeep">Jeep</option>
-                <option value="BMW">BMW</option>
-                <option value="Dodge">Dodge</option>
-                <option value="Mercedes-Benz">Mercedes-Benz</option>
-                <option value="Honda">Honda</option>
-            </select>
-
-            <button type="submit">Predict Price</button>
-        </form>
-
-        {% if prediction %}
+            {% if prediction %}
             <div class="result">
-                <h2>Predicted Price: ${{ prediction }}</h2>
+                <p class="result-label">Estimated Market Value</p>
+                <h2 class="predicted-price">${{ prediction }}</h2>
+                <p class="disclaimer">Note: This is an estimate based on our machine learning model.</p>
             </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
